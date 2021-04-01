@@ -1,61 +1,49 @@
-[![codecov](https://codecov.io/gh/molgenis/molgenis-app-biobank-explorer-vue-cli4/branch/master/graph/badge.svg)](https://codecov.io/gh/molgenis/molgenis-app-biobank-explorer-vue-cli4)
-# BBMRI-ERIC Biobank Explorer Version 2
-Vue CLI 4 application for the biobank explorer; A card detail view on BBMRI-ERIC biobank / collection data
+# Sample Collection Database Molgenis App
 
-## Preparing your MOLGENIS instance
-The biobank explorer is built on a specific data model. 
-This is the BBMRI-ERIC model and consists of the following tables:
+**Sample Collection Database Molgenis App** is a Vue CLI application for [MOLGENIS software](https://github.com/molgenis) (tested on v. 8.4.5). It is a modified version of the [BBMRI-ERIC Biobank Explorer app](https://github.com/molgenis/molgenis-app-biobank-explorer) (v. 3.1.2). The code shared in this repository is used for the [Swedish COVID-19 Sample Collection Database](https://biobanks.covid19dataportal.se).
 
-- eu_bbmri_eric_biobanks
-- eu_bbmri_eric_collections
-- eu_bbmri_eric_material_types
-- eu_bbmri_eric_disease_types
-- eu_bbmri_eric_lab_standards
+The original code of BBMRI-ERIC Biobank Explorer app has been modified in a *quick and dirty way* in order to build a version adapted to the local requirements (specifically, a different data model was used, part of the functionality was removed, page layouts have been changed, etc.). Note that by *'quick and dirty'* we mean that the present code contains a lot of remnants of the original app code which is no longer used but has not been removed. The modifications were made by the [SciLifeLab Data Centre](https://github.com/ScilifelabDataCentre) team; the team of developers of the original BBMRI-ERIC Biobank Explorer app was not in any way involved in making these modifications.
 
-Test model + data can be found in the 'sample-data' folder of this repository. Upload the data via the [Advanced data import](https://molgenis.gitbooks.io/molgenis/content/user_documentation/import-data/guide-upload.html)
+Further re-use of our code to deploy other similar databases is welcome (see license conditions). Importantly, we note that the code shared here comes with no guarantees that it works or that it works well.
 
-## Configure the Biobank Explorer
-You can configure 2 main settings in the Biobank Explorer.
+## Components of the app
 
-- Google Analytics
-- Negotiator
+The app works on top of [MOLGENIS software](https://github.com/molgenis), and it is built with a particular data model in mind. The data model (contained in an Excel file) can be found in the `sample data/` folder of the repository. This data model consists of the following tables:
 
-### Enable Google Analytics
-We use the [Vue Analytics library](https://github.com/MatteoGabriele/vue-analytics) to connect to Google Analytics.
-Add the GA_KEY parameter: 
+- scd_model_biobanks
+- scd_model_collections
+- scd_model_persons
+- scd_model_material_types
+- scd_model_disease_types
+- etc.
 
-```js
-  window.__INITIAL_STATE__ = {
-    GA_KEY: 'UA-XXXXXXXX-X'
-  }
-```
+To deploy a working instance of the database similar to [the one we run](https://biobanks.covid19dataportal.se), you need to:
 
-to your index.html or freemarker template to start tracking your Biobank Explorer app.
+1. have a running MOLGENIS instance (tested using version 8.4.5);
+2. build the Sample Collection Database app as described below, upload it through the admin panel of MOLGENIS ('Plugins' -> 'App manager'), and activate the app;
+3. import the Excel file with the data model (and possibly your data) through the admin panel of MOLGENIS ('Import data' -> 'Advanced data import') .
 
-### Configuring Negotiator
+If the data model is modified, you need to make corresponding modifications in the app code as the code directly refers to particular table and field names in the data model.
 
-This version of the biobank explorer is compatible with the Negotiator API in MOLGENIS version 8.3.10.
+Data can be added into the database by including it in the Excel file of the data model or by being manually added through the admin panel of MOLGENIS ('Navigator' -> 'scd_model' -> 'Biobanks'/'Collections'/'Persons' etc.).
 
-### Pre-selection a country
+Please [see MOLGENIS documentation](https://www.molgenis.org) for all questions regarding deploying MOLGENIS and its functionality.
 
-The country facet can removed from the list of facets and a country filter can be set by default.
-This setting can be toggled using the runtimeOptions section in the webpack.prod.conf.js or at runtime using the config entity
+## Contributing and re-using the code
 
-`runtimeOptions.showCountryFacet` should contain a boolean value indicating if the country facet needs to be shown.
-
-```js
-"appOptions": {
-    "showCountryFacet": true
-  }
-```
-
-## Contributing
-There are 2 ways to test and develop in apps for MOLGENIS.
+There are 2 ways to test and develop apps for MOLGENIS.
 
 - locally without MOLGENIS
 - locally with MOLGENIS
 
 ### Test locally without a running MOLGENIS instance
+
+When developing and executing the code of the app in the local environment, it connects to an existing instance of MOLGENIS in order to find data to render. In the particular case of this app, it makes a proxy connection to https://biobanks.covid19dataportal.se. This can be changed in the file `vue.config.js`, in the following line:
+
+```javascript
+const PROXY_TARGET = 'https://biobanks.covid19dataportal.se/'
+
+```
 
 For local testing you can execute the following commands:
 
@@ -68,25 +56,6 @@ yarn serve
 ```
 
 It will render a local version of the core variable catalogue.
-
-#### Run unit tests
-You can run unit tests by executing this command:
-
-```bash
-# Run once
-yarn test:unit
-
-# Run in watch-mode
-yarn debug
-```
-
-#### Run end-to-end tests
-You can run end-to-end test locally by running the following command:
-
-```bash
-yarn test:e2e
-```
-
 
 ### Test with a running MOLGENIS instance
 For local testing with a running MOLGENIS instance you have to alter the config of the app:
@@ -144,7 +113,7 @@ You can now create a working application that can be imported in MOLGENIS direct
 yarn build
 ```
 
-You can find the zip-file in the ```dist/molgenis-app-biobank-explorer_v2.zip```.
+You can find the zip-file in the ```dist/scd.zip```.
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
