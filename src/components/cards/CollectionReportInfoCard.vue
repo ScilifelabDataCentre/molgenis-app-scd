@@ -3,68 +3,55 @@
     <div class="card">
       <div class="card-body">
         <div class="card-text">
-          <template v-if="info.contact">
-            <h5>Contact Information</h5>
+          <template v-if="info.contact.display_collection_contact">
+            <h5>Collection contact information</h5>
             <ul class="right-content-list">
               <template v-if="info.head">
-                <li>
-                  <span class="font-weight-bold mr-1">Head/PI:</span>
-                  <span>{{ info.head }}</span>
-                </li>
+                <li><span class="font-weight-bold mr-1">Collection head:</span></li>
+                <li><span>{{ info.head }}</span></li>
               </template>
               <li v-if="info.contact.name">
-                <span class="font-weight-bold mr-1">Contact:</span>
-                <span>{{ info.contact.name }}</span>
+                <span class="font-weight-bold mr-1">Collection contact:</span>
               </li>
+              <li><span>{{ info.contact.name }}</span></li>
               <li v-if="info.contact.email">
-                <span class="fa fa-fw fa-paper-plane mr-2" aria-hidden="true"></span>
-                <a :href="'mailto:' + info.contact.email">
-                  <span>Email</span>
-                </a>
+                <span class="fa fa-fw fa-envelope mr-2" aria-hidden="true"></span>
+                <span>{{ info.contact.email }}</span>
                 <div v-if="info.contact.phone">
                   <span class="fa fa-fw fa-phone mr-1" aria-hidden="true"></span>
-                  <a :href="'tel:' + info.contact.phone">
-                    <span> {{ info.contact.phone }}</span></a
-                  >
+                  <span> {{ info.contact.phone }}</span>
                 </div>
+                <div v-if="info.contact.website">
+                  <span class="fa fa-fw fa-globe mr-2" aria-hidden="true"></span>
+                  <a :href="info.contact.website" target="_blank" rel="noopener noreferrer">
+                    <span>Collection homepage</span>
+                  </a></div>
               </li>
             </ul>
           </template>
           <template v-if="info.biobank">
-            <h5>Biobank</h5>
+            <h5>Biobank contact information</h5>
             <ul class="right-content-list">
+              <li>{{ info.biobank.name }}</li>
+              <li>Registration number at IVO: {{ info.biobank.ivo_regnum }}</li>
               <li>
-                <div>
-                  {{ info.biobank.name }}
-                </div>
-                <div>
-                  {{ info.biobank.juridical_person }}
-                </div>
-                <div>
-                  {{ info.biobank.country }}
-                </div>
-              </li>
-              <li>
-                <div v-if="info.biobank.report">
-                  <span class="fa fa-fw fa-address-card mr-2" aria-hidden="true"></span>
-                  <router-link :to="info.biobank.report">
-                    <span>View {{ info.biobank.name }}</span>
-                  </router-link>
-                </div>
+              <div v-if="info.biobank.email">
+                <span class="fa fa-fw fa-envelope mr-2" aria-hidden="true"></span>
+                  <span>{{ info.biobank.email }}</span>
+              </div>
                 <div v-if="info.biobank.website">
                   <span class="fa fa-fw fa-globe mr-2" aria-hidden="true"></span>
                   <a :href="info.biobank.website" target="_blank" rel="noopener noreferrer">
-                    <span>Website</span>
+                    <span>Biobank homepage</span>
                   </a>
                 </div>
-                <div v-if="info.biobank.email">
-                  <span class="fa fa-fw fa-paper-plane mr-2" aria-hidden="true"></span>
-                  <a :href="'mailto:' + info.biobank.email">
-                    <span>Email</span>
-                  </a>
-                </div>
-              </li>
-              <li>
+                </li>
+                <li v-if="info.biobank.report"><div>
+                  <router-link :to="info.biobank.report">
+                    <span>All collections of {{ info.biobank.name }}</span> <span class="fa fa-fw fa-arrow-circle-right" aria-hidden="true"></span>
+                  </router-link>
+                </div></li>
+              <!-- <li>
                 <div class="container p-0">
                   <div class="row">
                     <div class="col pr-0">
@@ -79,10 +66,10 @@
               <li>
                 <span class="font-weight-bold mr-2">Biobank id:</span>
                 <span class="biobank-id">{{ info.biobank.id }}</span>
-              </li>
+              </li> -->
             </ul>
           </template>
-          <template v-if="info.networks && info.networks.length > 0">
+          <!-- <template v-if="info.networks && info.networks.length > 0">
             <h5>Networks</h5>
             <ul class="right-content-list">
               <li>
@@ -98,7 +85,7 @@
                 </div>
               </li>
             </ul>
-          </template>
+          </template> -->
           <template v-if="info.certifications && info.certifications.length > 0">
             <h5>Quality</h5>
             <ul class="right-content-list">

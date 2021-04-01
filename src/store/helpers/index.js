@@ -14,6 +14,7 @@ export const createRSQLQuery = (state) => transformToRSQL({
   operands: flatten([
     createInQuery('country', state.country.filters),
     createInQuery('materials', state.materials.filters),
+    createInQuery('scollection_type', state.sampleCollectionType.filters),
     createInQuery('type', state.type.filters),
     createInQuery('data_categories', state.dataType.filters),
     createInQuery('diagnosis_available', state.diagnosis_available.filters.map(filter => filter.id)),
@@ -37,7 +38,7 @@ export const createBiobankRSQLQuery = (state) => transformToRSQL({
   ])
 })
 
-const BIOBANK_ID_REGEX = /api\/data\/eu_bbmri_eric_biobanks\/([^/]+)$/
+const BIOBANK_ID_REGEX = /api\/data\/scd_model_biobanks\/([^/]+)$/
 export const getBiobankId = (link) => link.match(BIOBANK_ID_REGEX)[1]
 
 export const CODE_REGEX = /^([A-Z]|[XVI]+)(\d{0,2}(-([A-Z]\d{0,2})?|\.\d{0,3})?)?$/i
@@ -69,6 +70,7 @@ const getHumanReadableString = (state) => {
 
   const countries = state.country.filters
   const materials = state.materials.filters
+  const sampleCollectionType = state.sampleCollectionType.filters
   const collectionQuality = state.collection_quality.filters
   const types = state.type.filters
   const dataTypes = state.dataType.filters
@@ -89,6 +91,11 @@ const getHumanReadableString = (state) => {
   if (materials.length > 0) {
     if (humanReadableString.length > 0) humanReadableString += ' and '
     humanReadableString += 'selected material types are ' + materials.join(',')
+  }
+
+  if (sampleCollectionType.length > 0) {
+    if (humanReadableString.length > 0) humanReadableString += ' and '
+    humanReadableString += 'selected biobank types are ' + sampleCollectionType.join(',')
   }
 
   if (collectionQuality.length > 0) {

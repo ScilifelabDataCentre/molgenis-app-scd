@@ -60,7 +60,7 @@ export default {
   name: 'diagnosis-available-filters',
   data () {
     return {
-      collapsed: false
+      collapsed: true
     }
   },
   methods: {

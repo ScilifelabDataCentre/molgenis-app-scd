@@ -35,6 +35,10 @@ export default {
     filters: [],
     options: []
   },
+  sampleCollectionType: {
+    filters: [],
+    options: []
+  },
   collection_quality: {
     filters: [],
     options: [],

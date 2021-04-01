@@ -1,13 +1,13 @@
 <template>
-  <p v-if="description" class="mg-report-description">
+  <div v-if="description" class="mg-report-description mb-3">
     <b>Description: </b>{{descriptionToDisplay}}
     <span v-if="description.length > maxLength">
-      <button @click="toggleDescription" class="btn btn-link p-0">
+      <button @click="toggleDescription" class="btn btn-link p-0 back-text">
         <span v-if="descriptionClosed">... show more <i class="fa fa-angle-down" aria-hidden="true"></i></span>
         <span v-else> show less <i class="fa fa-angle-up" aria-hidden="true"></i></span>
       </button>
     </span>
-  </p>
+  </div>
 </template>
 
 <script>

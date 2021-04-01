@@ -12,10 +12,10 @@
     <b-collapse :visible="!collapsed" :id="'filter-card-'+name">
       <b-card-body>
         <div class="query-type-selector">
-          <label class="label-disabled">
+          <!-- <label class="label-disabled">
             Satisfy all
             <input type="checkbox" :checked="all" disabled />
-          </label>
+          </label> -->
         </div>
         <b-form-group class="pt-2">
           <b-form-checkbox-group stacked :name="name" v-model="selection">

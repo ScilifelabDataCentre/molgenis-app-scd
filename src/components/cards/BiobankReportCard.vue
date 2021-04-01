@@ -7,10 +7,10 @@
       background-color="var(--light)"
     ></loading>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col">
+      <div class="row pl-0">
+        <div class="col pl-0">
           <!-- Back to previous page buttons -->
-          <button class="btn btn-link" @click="back">
+          <button class="btn back-text" @click="back">
             <i class="fa fa-angle-left" aria-hidden="true"></i> Back
           </button>
         </div>
@@ -18,17 +18,18 @@
 
       <div class="row" v-if="biobankDataAvailable && !this.isLoading">
         <div class="col">
-          <report-title type="Biobank" :name="biobank.name"></report-title>
+          <div class="row mr-1"><div class="col-auto"><report-title type="Biobank" :name="biobank.name"></report-title></div><div class="col d-flex justify-content-end"><img style="height: 80px" v-bind:src="biobank.logoURL" v-bind:rel="biobank.name"></div></div>
           <div class="container">
-            <div class="row">
-              <div class="col-md-8">
-                <p><b>Id: </b>{{ biobank.id }}</p>
+            <div class="row pl-0">
+              <div class="col-md-8 pl-0">
                 <report-description :description="biobank.description" :maxLength="500"></report-description>
-                    <p v-if="availableCovidTypes">
-                      <report-details-list :reportDetails="availableCovidTypes"></report-details-list>
-                   </p>
-                <h3>Collections</h3>
-                <div v-for="(collection, index) in collectionsData" :key="collection.id">
+                <div v-if="biobank.acronym" class="row"><div class="col-auto font-weight-bold">Acronym:</div><div class="col pl-0">{{ biobank.acronym }}</div></div>
+                <div class="row"><div class="col-auto font-weight-bold">Juridical person:</div><div class="col pl-0">{{ biobank.juridical_person }}</div></div>
+                <div v-if="biobank.ivo_regnum" class="row"><div class="col-auto font-weight-bold">Biobank registration number at IVO:</div><div class="col pl-0">{{ biobank.ivo_regnum }}</div></div>
+                <!--- <div class="row"><div class="col-auto font-weight-bold">Biobank ID in the COVID-19 Biobank Registry:</div><div class="col pl-0">{{ biobank.id }}</div></div> --->
+
+                <h4 class="mt-3">Collections</h4>
+                <div class="pl-0" v-for="(collection, index) in collectionsData" :key="collection.id">
                   <hr v-if="index"/>
                   <report-collection :collection="collection"></report-collection>
                 </div>
@@ -39,12 +40,25 @@
                   <div class="card-body">
                     <div class="card-text">
                       <h5>Contact Information</h5>
-                      <report-details-list :reportDetails="contact"></report-details-list>
+                      <!-- <report-details-list :reportDetails="contact"></report-details-list> -->
+                      <div v-if="biobank.address" class="row mb-2"><div class="col">
+                        <span> {{ biobank.address }}, {{ biobank.country.name }}</span>
+                      </div></div>
+                      <div class="row"><div class="col">
+                        <span class="fa fa-fw fa-envelope mr-1" aria-hidden="true"></span>
+                        <span> {{ contact.email.value }}</span>
+                      </div></div>
+                      <div v-if="biobank.url" class="row"><div class="col">
+                        <span class="fa fa-fw fa-globe mr-2" aria-hidden="true"></span>
+                        <a :href="biobank.url" target="_blank" rel="noopener noreferrer">Biobank homepage</a>
+                      </div></div>
+                      <div v-if="biobank.biobank_sverige" class="mt-2"><b>Part of:</b><br><a href="https://biobanksverige.se/"><img style="height: 60px" src="https://biobanksverige.se/wp-content/themes/nbr/img/biobanksverige-logo.jpg" rel="Part of Biobank Sverige"></a></div>
                       <h5 v-if="networks && networks.length > 0">Networks</h5>
                       <report-details-list :reportDetails="network" v-for="network in networks"
                                            :key="network.id"></report-details-list>
                       <h5 v-if="quality && quality.Certification && quality.Certification.value.length > 0">Quality</h5>
                       <report-details-list :reportDetails="quality"></report-details-list>
+
                     </div>
                   </div>
                 </div>

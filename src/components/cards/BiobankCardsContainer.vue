@@ -4,7 +4,7 @@
       <b-pagination
         v-if="foundBiobanks > pageSize"
         size="md"
-        align="center"
+        align="right"
         :total-rows="foundBiobanks"
         v-model="currentPage"
         :per-page="pageSize"
@@ -15,11 +15,10 @@
         :biobank="biobank"
         :initCollapsed="!isAnyFilterActive">
       </biobank-card>
-
       <b-pagination
         v-if="foundBiobanks > pageSize"
         size="md"
-        align="center"
+        align="right"
         :total-rows="foundBiobanks"
         v-model="currentPage"
         :per-page="pageSize"

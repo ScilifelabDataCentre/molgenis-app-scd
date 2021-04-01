@@ -1,6 +1,5 @@
 import api from '@molgenis/molgenis-api-client'
 import helpers from './helpers'
-import utils from '../utils'
 import 'array-flat-polyfill'
 
 import {
@@ -16,14 +15,10 @@ import {
   SET_ERROR,
   SET_LOADING,
   SET_MATERIALS,
-  SET_COLLECTION_QUALITY,
-  SET_BIOBANK_QUALITY,
+  SET_BIOBANK_TYPE,
   MAP_QUERY_TO_STATE,
-  SET_COLLECTION_QUALITY_COLLECTIONS,
-  SET_BIOBANK_QUALITY_BIOBANKS,
   SET_NETWORK_COLLECTIONS,
   SET_NETWORK_BIOBANKS,
-  SET_COVID_19,
   SET_NETWORK_OPTIONS,
   SET_PODIUM,
   SET_PODIUM_COLLECTIONS,
@@ -35,14 +30,10 @@ import { encodeRsqlValue, transformToRSQL } from '@molgenis/rsql'
 /* ACTION CONSTANTS */
 export const GET_COUNTRY_OPTIONS = '__GET_COUNTRY_OPTIONS__'
 export const GET_MATERIALS_OPTIONS = '__GET_MATERIALS_OPTIONS__'
-export const GET_COLLECTION_QUALITY_OPTIONS = '__GET_COLLECTION_QUALITY_OPTIONS__'
-export const GET_BIOBANK_QUALITY_OPTIONS = '__GET_BIOBANK_QUALITY_OPTIONS__'
+export const GET_BIOBANK_TYPE_OPTIONS = '__GET_BIOBANK_TYPE_OPTIONS__'
 export const GET_TYPES_OPTIONS = '__GET_TYPES_OPTIONS__'
 export const GET_DATA_TYPE_OPTIONS = '__GET_DATA_TYPE_OPTIONS__'
-export const GET_COVID_19_OPTIONS = '__GET_COVID_19_OPTIONS__'
 export const QUERY_DIAGNOSIS_AVAILABLE_OPTIONS = '__QUERY_DIAGNOSIS_AVAILABLE_OPTIONS__'
-export const GET_COLLECTION_QUALITY_COLLECTIONS = '__GET_COLLECTION_QUALITY_COLLECTIONS__'
-export const GET_BIOBANK_QUALITY_BIOBANKS = '__GET_BIOBANK_QUALITY_BIOBANKS__'
 export const GET_BIOBANKS = '__GET_BIOBANKS__'
 export const GET_COLLECTION_INFO = '__GET_COLLECTION_INFO__'
 export const GET_BIOBANK_IDS = '__GET_BIOBANK_IDS__'
@@ -58,26 +49,22 @@ export const GET_NEGOTIATOR_ENTITIES = '__GET_NEGOTIATOR_ENTITIES__'
 
 /* API PATHS */
 
-const BIOBANK_API_PATH = '/api/v2/eu_bbmri_eric_biobanks'
-const COLLECTION_API_PATH = '/api/v2/eu_bbmri_eric_collections'
-const NETWORK_API_PATH = '/api/v2/eu_bbmri_eric_networks'
-const COLLECTION_QUALITY_API_PATH = '/api/v2/eu_bbmri_eric_assess_level_col'
-const BIOBANK_QUALITY_API_PATH = '/api/v2/eu_bbmri_eric_assess_level_bio'
-const COUNTRY_API_PATH = '/api/v2/eu_bbmri_eric_countries'
-const MATERIALS_API_PATH = '/api/v2/eu_bbmri_eric_material_types'
-const COLLECTION_TYPES_API_PATH = '/api/v2/eu_bbmri_eric_collection_types'
-const DATA_TYPES_API_PATH = '/api/v2/eu_bbmri_eric_data_types'
-const DISEASE_API_PATH = '/api/v2/eu_bbmri_eric_disease_types'
-const COLLECTION_QUALITY_INFO_API_PATH = '/api/v2/eu_bbmri_eric_col_qual_info'
-const BIOBANK_QUALITY_INFO_API_PATH = '/api/v2/eu_bbmri_eric_bio_qual_info'
-const COVID_19_API_PATH = '/api/v2/eu_bbmri_eric_COVID_19'
+const BIOBANK_API_PATH = '/api/v2/scd_model_biobanks'
+const COLLECTION_API_PATH = '/api/v2/scd_model_collections'
+const NETWORK_API_PATH = '/api/v2/scd_model_networks'
+const COUNTRY_API_PATH = '/api/v2/scd_model_countries'
+const MATERIALS_API_PATH = '/api/v2/scd_model_material_types'
+const BIOBANK_TYPE_API_PATH = '/api/v2/scd_model_scollection_types'
+const COLLECTION_TYPES_API_PATH = '/api/v2/scd_model_collection_types'
+const DATA_TYPES_API_PATH = '/api/v2/scd_model_data_types'
+const DISEASE_API_PATH = '/api/v2/scd_model_disease_types'
 const NEGOTIATOR_API_PATH = '/api/v2/sys_negotiator_NegotiatorConfig'
 const NEGOTIATOR_CONFIG_API_PATH = '/api/v2/sys_negotiator_NegotiatorEntityConfig?attrs=*,biobankId(refEntityType)'
 /**/
 
 /* Query Parameters */
-const COLLECTION_ATTRIBUTE_SELECTOR = 'collections(id,description,materials,diagnosis_available,name,type,order_of_magnitude(*),size,sub_collections(*),parent_collection,quality(*),data_categories)'
-export const COLLECTION_REPORT_ATTRIBUTE_SELECTOR = '*,diagnosis_available(label),biobank(id,name,juridical_person,country,url,contact),contact(title_before_name,first_name,last_name,title_after_name,email,phone),sub_collections(name,id,sub_collections(*),parent_collection,order_of_magnitude,materials,data_categories)'
+const COLLECTION_ATTRIBUTE_SELECTOR = 'collections(id,description,materials,scollection_type,diagnosis_available,name,type,order_of_magnitude(*),sub_collections(*),parent_collection,data_categories)'
+export const COLLECTION_REPORT_ATTRIBUTE_SELECTOR = '*,diagnosis_available(label),biobank(id,name,juridical_person,country,address,url,contact,ivo_regnum),contact(title_before_name,first_name,last_name,title_after_name,email,phone),sub_collections(name,id,sub_collections(*),parent_collection,order_of_magnitude,materials,scollection_type,data_categories)'
 /**/
 
 export default {
@@ -118,23 +105,9 @@ export default {
       commit(SET_ERROR, error)
     })
   },
-  [GET_COLLECTION_QUALITY_OPTIONS] ({ commit }) {
-    api.get(COLLECTION_QUALITY_API_PATH).then(response => {
-      commit(SET_COLLECTION_QUALITY, response.items)
-    }, error => {
-      commit(SET_ERROR, error)
-    })
-  },
-  [GET_BIOBANK_QUALITY_OPTIONS] ({ commit }) {
-    api.get(BIOBANK_QUALITY_API_PATH).then(response => {
-      commit(SET_BIOBANK_QUALITY, response.items)
-    }, error => {
-      commit(SET_ERROR, error)
-    })
-  },
-  [GET_COVID_19_OPTIONS] ({ commit }) {
-    api.get(COVID_19_API_PATH).then(response => {
-      commit(SET_COVID_19, response.items)
+  [GET_BIOBANK_TYPE_OPTIONS] ({ commit }) {
+    api.get(BIOBANK_TYPE_API_PATH).then(response => {
+      commit(SET_BIOBANK_TYPE, response.items)
     }, error => {
       commit(SET_ERROR, error)
     })
@@ -162,27 +135,6 @@ export default {
       commit(SET_DIAGNOSIS_AVAILABLE, [])
     }
   },
-  [GET_COLLECTION_QUALITY_COLLECTIONS] ({ state, commit }) {
-    if (state.route.query.collection_quality) {
-      const collectionQualityIds = state.route.query.collection_quality.split(',')
-      api.get(`${COLLECTION_QUALITY_INFO_API_PATH}?q=assess_level_col=in=(${collectionQualityIds})`).then(response => {
-        commit(SET_COLLECTION_QUALITY_COLLECTIONS, response.items)
-      })
-    } else {
-      commit(SET_COLLECTION_QUALITY_COLLECTIONS, [])
-    }
-  },
-
-  [GET_BIOBANK_QUALITY_BIOBANKS] ({ state, commit }) {
-    if (state.route.query.biobank_quality) {
-      const biobankQualityIds = state.route.query.biobank_quality.split(',')
-      api.get(`${BIOBANK_QUALITY_INFO_API_PATH}?q=assess_level_bio=in=(${biobankQualityIds})`).then(response => {
-        commit(SET_BIOBANK_QUALITY_BIOBANKS, response.items)
-      })
-    } else {
-      commit(SET_BIOBANK_QUALITY_BIOBANKS, [])
-    }
-  },
 
   [GET_QUERY] ({ state, dispatch, commit }) {
     if (Object.keys(state.route.query).length > 0) {
@@ -192,12 +144,6 @@ export default {
         api.get(`${DISEASE_API_PATH}?q=code=in=(${diseaseTypeIds})`).then(response => {
           commit(MAP_QUERY_TO_STATE, { diagnoses: response.items })
         })
-      } else {
-        commit(MAP_QUERY_TO_STATE)
-      }
-      if (state.route.query.collection_quality) {
-        dispatch(GET_COLLECTION_QUALITY_COLLECTIONS)
-        commit(MAP_QUERY_TO_STATE)
       } else {
         commit(MAP_QUERY_TO_STATE)
       }
@@ -220,7 +166,7 @@ export default {
    */
   [GET_COLLECTION_INFO] ({ commit, dispatch, getters }) {
     commit(SET_COLLECTION_INFO, undefined)
-    let url = '/api/data/eu_bbmri_eric_collections?filter=id,biobank,name,label&size=10000&sort=biobank_label'
+    let url = '/api/data/scd_model_collections?filter=id,biobank,name,label&sort=biobank_label'
     if (getters.rsql) {
       url = `${url}&q=${encodeRsqlValue(getters.rsql)}`
     }
@@ -239,7 +185,7 @@ export default {
   },
   [GET_BIOBANK_IDS] ({ commit, getters }) {
     commit(SET_BIOBANK_IDS, undefined)
-    let url = '/api/data/eu_bbmri_eric_biobanks?filter=id&size=10000&sort=name'
+    let url = '/api/data/scd_model_biobanks?filter=id&sort=name'
     if (getters.biobankRsql) {
       url = `${url}&q=${encodeRsqlValue(getters.biobankRsql)}`
     }
@@ -256,7 +202,7 @@ export default {
       return
     }
     commit(SET_LOADING, true)
-    api.get(`${BIOBANK_API_PATH}/${biobankId}?attrs=${COLLECTION_ATTRIBUTE_SELECTOR},${utils.qualityAttributeSelector('bio')},contact(*),*`).then(response => {
+    api.get(`${BIOBANK_API_PATH}/${biobankId}?attrs=${COLLECTION_ATTRIBUTE_SELECTOR},contact(*),*`).then(response => {
       commit(SET_BIOBANK_REPORT, response)
       commit(SET_LOADING, false)
     }, error => {
@@ -298,7 +244,7 @@ export default {
   },
   [GET_PODIUM_COLLECTIONS] ({ state, commit }) {
     if (state.podiumCollectionIds.length === 0) { // only fetch once.
-      api.get("/api/data/eu_bbmri_eric_collections?num=10000&filter=id&q=podium!=''").then(response => {
+      api.get("/api/data/scd_model_collections?num=10000&filter=id&q=podium!=''").then(response => {
         commit(SET_PODIUM_COLLECTIONS, response)
       })
     }

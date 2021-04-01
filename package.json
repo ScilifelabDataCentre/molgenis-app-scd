@@ -1,9 +1,9 @@
 {
-  "name": "molgenis-app-biobank-explorer",
+  "name": "scd",
   "license": "LGPL-3.0",
-  "version": "3.1.2",
-  "description": "Vue application for the biobank explorer; A card detail view on BBMRI-ERIC biobank / collection data",
-  "author": "mkslofstra <mariska-karina@hotmail.com>, Jelmer Veen <https://github.com/jelmerveen/>",
+  "version": "1.0.0",
+  "description": "Vue application for the Sample Collection Database on the Swedish COVID-19 Data Portal (https://covid19dataportal.se). The application is based on BBMRI-ERIC Biobank Explorer, v. 3.1.2",
+  "author": "mkslofstra <mariska-karina@hotmail.com>, Jelmer Veen <https://github.com/jelmerveen/>, modified by Arnold Kochari <arnold.kochari@scilifelab.uu.se>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

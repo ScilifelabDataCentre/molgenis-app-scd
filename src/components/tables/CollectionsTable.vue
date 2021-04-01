@@ -2,11 +2,11 @@
   <table class="table table-condensed table-responsive">
     <thead>
       <tr>
-        <th scope="col">Collection</th>
+        <th scope="col">Collection name</th>
         <th scope="col">Type</th>
         <th scope="col">Materials</th>
-        <th scope="col">Standards</th>
-        <th scope="col">#Samples</th>
+        <!-- <th scope="col">Standards</th> -->
+        <th scope="col">Number of samples</th>
       </tr>
     </thead>
     <tbody>
@@ -15,16 +15,15 @@
           <td
             :class="{'table-text-content-columns-has-sub': hasSubCollections(collection), 'table-text-content-columns': !hasSubCollections(collection)}"
             v-for="(column, index) in columns"
-            :key="index"
-          >
+            :key="index">
             <span v-if="column === 'name'">
               <router-link :to="'/collection/' + collection['id']">
-                <button class="btn btn-link collection-link text-left pt-0 border-0">{{collection[column]}}</button>
+                <button class="btn btn-link collection-link text-left pt-0 border-0 back-text">{{collection[column]}}</button>
               </router-link>
             </span>
-            <span v-else-if="column === 'quality'">
+            <!-- <span v-else-if="column === 'quality'">
               <quality-column :qualities="collection[column]" :spacing="0"></quality-column>
-            </span>
+            </span> -->
 
             <span v-else-if="column === 'type'">{{ getCollectionType(collection) }}</span>
             <span v-else-if="column === 'materials'">{{ getCollectionMaterials(collection) }}</span>
@@ -56,7 +55,7 @@
 <script>
 import utils from '../../utils'
 import SubCollectionsTable from './SubCollectionsTable'
-import QualityColumn from './QualityColumn'
+// import QualityColumn from './QualityColumn'
 
 export default {
   name: 'CollectionsTable',
@@ -80,7 +79,8 @@ export default {
   },
   data () {
     return {
-      columns: ['name', 'type', 'materials', 'quality', 'size'],
+      columns: ['name', 'type', 'materials', 'size'],
+      // columns: ['name', 'type', 'materials', 'quality', 'size'],
       quality_logo: { height: 4, width: 9 }
     }
   },
@@ -92,7 +92,7 @@ export default {
     },
     getCollectionType (collection) {
       return utils
-        .getUniqueIdArray(collection.type.map(type => type.label))
+        .getUniqueIdArray(collection.scollection_type.map(type => type.label))
         .join(', ')
     },
     hasSubCollections (collection) {
@@ -103,12 +103,13 @@ export default {
       )
     },
     getCollectionSize (collection) {
-      return collection.size || collection.order_of_magnitude.size
+      return collection.order_of_magnitude.size
     }
   },
   components: {
-    SubCollectionsTable,
-    QualityColumn
+    SubCollectionsTable
+    // ,
+    // QualityColumn
   }
 }
 </script>
@@ -122,8 +123,8 @@ export default {
   }
 
   .table-text-content-columns {
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: normal;
   }
 
   .table-text-content-columns-has-sub {

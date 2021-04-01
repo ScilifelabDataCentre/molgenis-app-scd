@@ -5,7 +5,7 @@
     </b>
 
     <table class="mg-report-details-list mb-3">
-      <report-list-row :data="collection.content.Size">Size:</report-list-row>
+      <report-list-row :data="collection.content.order_of_magnitude">Size:</report-list-row>
       <report-list-row :data="collection.content.Materials">Materials:</report-list-row>
       <report-list-row :data="collection.content.Data">Data:</report-list-row>
     </table>

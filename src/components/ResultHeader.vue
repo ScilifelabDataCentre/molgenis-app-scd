@@ -10,7 +10,7 @@
       <div class="col-md-12">
         <div class="biobank-number-report-container">
           <small class="biobank-number-report">
-          <em>{{foundBiobanks}} organisations with {{foundCollectionIds.length}} collections matching the search criteria</em>
+          <em>{{foundBiobanks}} biobanks with {{foundCollectionIds.length}} collections matching the search criteria</em>
           </small>
         </div>
       </div>

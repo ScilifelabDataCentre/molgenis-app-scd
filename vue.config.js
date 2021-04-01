@@ -25,7 +25,7 @@ const htmlTemplate = () => {
   if (process.env.NODE_ENV === 'test') return 'public/preview.html'
 }
 
-const PROXY_TARGET = 'https://master.dev.molgenis.org'
+const PROXY_TARGET = 'https://biobanks.covid19dataportal.se/'
 
 const apiDevServerProxyConf = {
   target: PROXY_TARGET,

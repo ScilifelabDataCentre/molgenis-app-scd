@@ -1,11 +1,4 @@
 /**
- * Generate the attribute selector for quality parameters (can be either for collection or for biobank)
- * */
-const qualityAttributeSelector = (type) => {
-  return `quality(id,standards(*),assess_level_${type}(*),certification_number,certification_image_link,certification_report,label)`
-}
-
-/**
  * Create an RSQL 'in' query for filters
  *
  * @example in query for country filter
@@ -42,6 +35,5 @@ export default {
   getUniqueIdArray,
   createInQuery,
   createComparisons,
-  removeFilterFromFilterArrayById,
-  qualityAttributeSelector
+  removeFilterFromFilterArrayById
 }

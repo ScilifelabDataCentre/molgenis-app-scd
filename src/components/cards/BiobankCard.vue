@@ -7,25 +7,15 @@
             <router-link :to="'/biobank/' + biobank.id">
               <span class="fa fa-table mr-2 icon-alignment" aria-hidden="true" aria-labelledby="biobank-name"></span>
             </router-link>
-            <span id="biobank-name">{{ biobank.name }}</span>
+            <span id="biobank-name">{{ biobank.acronym }}</span>
           </h5>
-          <small v-if="biobank.quality && biobank.quality.length > 0">
-            <quality-column :qualities="biobank.quality" :spacing="0"></quality-column>
-          </small>
-          <span v-if="availableCovidTypes">
-            <b-img
-              class="biobank-icon covid-icon"
-              :src="require('../../assets/custom_icons/covid19.png')"
-              title="Covid-19"
-            />
-          </span>
         </div>
         <div class="col-md-7" v-if="!loading">
           <p>
             <small class="mr-2">
-              <span class="font-weight-bold">Collection types:</span>
+              <span class="font-weight-bold">Sample collection types:</span>
             </small>
-            <small>{{ collectionTypes }}</small>
+            <small>{{ sampleCollectionType }}</small>
             <br />
             <small class="mr-2">
               <span class="font-weight-bold">Juridical person:</span>
@@ -56,7 +46,6 @@
 import CollectionsTable from '../tables/CollectionsTable.vue'
 import utils from '../../utils'
 import { sortCollectionsByName } from '../../utils/sorting'
-import QualityColumn from '../tables/QualityColumn'
 import 'array-flat-polyfill'
 
 export default {
@@ -83,14 +72,14 @@ export default {
     loading () {
       return typeof this.biobank === 'string'
     },
-    collectionTypes () {
+    sampleCollectionType () {
       const getSubCollections = collection => [
         collection,
         ...collection.sub_collections.flatMap(getSubCollections)
       ]
       const types = this.biobank.collections
         .flatMap(getSubCollections)
-        .flatMap(collection => collection.type)
+        .flatMap(collection => collection.scollection_type)
         .map(type => type.label)
       return utils.getUniqueIdArray(types).join(', ')
     },
@@ -106,8 +95,7 @@ export default {
     }
   },
   components: {
-    CollectionsTable,
-    QualityColumn
+    CollectionsTable
   }
 }
 </script>

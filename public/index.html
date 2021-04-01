@@ -2,12 +2,63 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>BBMRI-ERIC Directory</title>
-  <link rel="stylesheet" href="https://rawgit.com/molgenis/molgenis-projects/master/BBMRI_eric/css/bbmri_eric_bootstrap4_theme.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Swedish COVID-19 Sample Collection Database, part of the COVID-19 Data Portal Sweden</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://covid19dataportal.se/css/styles.css">
+
 </head>
 <body>
-<div id="app"></div>
 
+  <nav class="navbar navbar-expand-md navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="https://covid19dataportal.se/img/site_logo/CV19DP_logo_oneliner_SWE.svg" alt="COVID-19 Biobank Registry, part of the COVID-19 Data Portal Sweden">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapseBottom" aria-controls="navbarCollapseBottom" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarCollapseBottom">
+      <div class="navbar-primary-links">
+        <a class="nav-link" href="/">Sample Collection Database</a></li>
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="https://covid19dataportal.se/"><i class="fas fa-arrow-circle-left"></i> back to the COVID-19 Data Portal Sweden</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container"><hr/></div>
+
+    <div id="app"></div>
+
+    <div class="container">
+      <hr/>
+      <div class="row">
+  			<div class="col mx-1 mt-2">
+                <p>The Swedish COVID-19 Sample Collection Database is a section of the <a href="https://covid19dataportal.se" target="_blank">COVID-19 Data Portal Sweden</a> maintained in collaboration with <a href="https://biobanksverige.se/" target="_blank">Biobank Sverige</a>.
+                  The project is funded by the <a href="https://vr.se/" target="_blank">Swedish Research Council</a> as part of the effort to coordinate the collection of and access to samples linked to COVID-19. Please <a href="https://covid19dataportal.se/biobanks/" target="_blank">see this page</a> for more information about the database. Questions, comments, and suggestions regarding the database can be sent to <a href="mailto:datacentre@scilifelab.se">datacentre@scilifelab.se</a>.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <img class="mr-3" src="https://covid19dataportal.se/img/logos/scilifelab-logo.svg" alt="SciLifeLab" height="40">
+        <img class="mr-3" src="https://covid19dataportal.se/img/logos/biobanksverige_logo.jpg" alt="Biobank Sverige" height="40">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mx-1 mt-4">
+              <p class="small text-muted">This database was created using the open source <a href="https://github.com/molgenis" target="_blank">MOLGENIS software</a> (8.4.5) in combination with the <a href="">Sample Collection Database app</a> (1.0.0) itsels is based on the <a href="https://github.com/molgenis/molgenis-app-biobank-explorer" target="_blank">BBMRI-ERIC Biobank Explorer app</a> (3.1.2). Please cite <a href="https://www.ncbi.nlm.nih.gov/pubmed/30165396">Van der Velde et al (2018)</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/21210979">Swertz et al (2010)</a> or <a href="https://www.ncbi.nlm.nih.gov/pubmed/17297480">Swertz & Jansen(2007)</a> on use.</p>
+              <p class="small"><a href="https://covid19dataportal.se/privacy/">Privacy notice</a></p>
+    </div>
+    </div>
+
+    </div>
+
+<script src="https://kit.fontawesome.com/471b59d3f8.js" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/4b6985a594.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -19,5 +70,6 @@
     showCountryFacet: true
     }
 </script>
+
 </body>
 </html>

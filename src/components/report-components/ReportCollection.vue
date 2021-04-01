@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h4><router-link :to='"/collection/"+collection.id'>{{collection.name}}</router-link></h4>
+    <h5><router-link :to='"/collection/"+collection.id'>{{collection.name}}</router-link></h5>
     <report-description :description="collection.description" :maxLength="200"></report-description>
     <report-details-list :reportDetails="collection.content"></report-details-list>
     <div v-if="collection.subCollections.length" class="m-3">
-      <h5>Sub collections</h5>
+      <h6>Sub collections</h6>
       <report-sub-collection v-for="subCollection in collection.subCollections" :collection="subCollection" :level="1"
                              :key="subCollection.id"></report-sub-collection>
     </div>
@@ -29,7 +29,7 @@ export default {
       content: {
         stringValues: Object,
         listValues: {
-          Size: {
+          order_of_magnitude: {
             values: Array,
             badgeColor: String
           },

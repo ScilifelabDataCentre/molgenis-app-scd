@@ -81,6 +81,11 @@ export const mapDetailsTableContent = report => {
       type: 'list',
       badgeColor: 'danger'
     },
+    CollectionType: {
+      value: mapObjArrayToStringArrayIfExists(report.scollection_type),
+      type: 'list',
+      badgeColor: 'secondary'
+    },
     Storage: {
       value: mapObjArrayToStringArrayIfExists(report.storage_temperatures),
       type: 'list',
@@ -108,7 +113,9 @@ export const collectionReportInformation = collection => {
     collectionReport.contact = {
       name: getName(collection.contact),
       email: collection.contact.email ? collection.contact.email : undefined,
-      phone: collection.contact.phone ? collection.contact.phone : undefined
+      phone: collection.contact.phone ? collection.contact.phone : undefined,
+      website: collection.url ? collection.url : undefined,
+      display_collection_contact: collection.display_collection_contact ? collection.display_collection_contact : undefined
     }
   }
 
@@ -116,10 +123,13 @@ export const collectionReportInformation = collection => {
     collectionReport.biobank = {
       id: collection.biobank.id,
       name: collection.biobank.name,
+      description: collection.biobank.description,
       juridical_person: collection.biobank.juridical_person,
+      address: collection.biobank.address,
       country: collection.country.name,
       report: `/biobank/${collection.biobank.id}`,
       website: mapUrl(collection.biobank.url),
+      ivo_regnum: collection.biobank.ivo_regnum,
       email: collection.biobank.contact ? collection.biobank.contact.email : undefined,
       partnerCharter: collection.biobank.partner_charter_signed ? 'yes' : 'no'
     }
@@ -165,6 +175,9 @@ export const mapContactInfo = instance => {
       type: 'email'
     },
     juridical_person: { value: instance.juridical_person, type: 'string' },
+    description: { value: instance.description, type: 'string' },
+    ivo_regnum: { value: instance.ivo_regnum, type: 'string' },
+    address: { value: instance.address, type: 'string' },
     country: {
       value: instance.country ? instance.country.name : undefined,
       type: 'string'
@@ -182,8 +195,11 @@ export const mapCollectionsData = collections => {
         collection.sub_collections && collection.sub_collections.length > 0
           ? mapCollectionsData(collection.sub_collections)
           : [],
+      local_id: collection.local_id,
       name: collection.name,
+      acronym: collection.acronym,
       id: collection.id,
+      ethics_id: collection.ethics_id,
       content: {
         Size: {
           value: getSize(collection),
@@ -194,6 +210,11 @@ export const mapCollectionsData = collections => {
           value: mapObjArrayToStringArrayIfExists(collection.materials),
           type: 'list',
           badgeColor: 'danger'
+        },
+        CollectionType: {
+          value: mapObjArrayToStringArrayIfExists(collection.scollection_type),
+          type: 'list',
+          badgeColor: 'secondary'
         },
         Data: {
           value: mapObjArrayToStringArrayIfExists(collection.data_categories),

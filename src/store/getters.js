@@ -69,6 +69,7 @@ export default {
   resetPage: state => !state.isPaginating,
   getCountryOptions: state => state.country.options,
   getMaterialOptions: state => state.materials.options,
+  getBiobankTypeOptions: state => state.sampleCollectionType.options,
   getCollectionQualityOptions: state => state.collection_quality.options,
   getBiobankQualityOptions: state => state.biobank_quality.options,
   getTypesOptions: state => state.type.options,
@@ -94,6 +95,10 @@ export default {
 
     if (state.materials.filters.length > 0) {
       activeFilters.materials = state.materials.options.filter(option => state.materials.filters.includes(option.id))
+    }
+
+    if (state.sampleCollectionType.filters.length > 0) {
+      activeFilters.sampleCollectionType = state.sampleCollectionType.options.filter(option => state.sampleCollectionType.filters.includes(option.id))
     }
 
     if (state.country.filters.length > 0) {
