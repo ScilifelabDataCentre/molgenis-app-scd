@@ -1,10 +1,10 @@
 # Sample Collection Database Molgenis App
 
-**Sample Collection Database Molgenis App** is a Vue CLI application for [MOLGENIS software](https://github.com/molgenis) (tested on v. 8.4.5). It is a modified version of the [BBMRI-ERIC Biobank Explorer app](https://github.com/molgenis/molgenis-app-biobank-explorer) (v. 3.1.2). The code shared in this repository is used for the [Swedish COVID-19 Sample Collection Database](https://biobanks.covid19dataportal.se).
+**Sample Collection Database Molgenis App** is a Vue CLI application for [MOLGENIS software](https://github.com/molgenis) (tested on v. 8.4.5). It is a modified version of the [BBMRI-ERIC Biobank Explorer app](https://github.com/molgenis/molgenis-app-biobank-explorer) (v. 3.1.2) shared with LGPL-3.0 License. The code published in this repository is used for the [Swedish COVID-19 Sample Collection Database](https://biobanks.covid19dataportal.se).
 
-The original code of BBMRI-ERIC Biobank Explorer app has been modified in a *quick and dirty way* in order to build a version adapted to the local requirements (specifically, a different data model was used, part of the functionality was removed, page layouts have been changed, etc.). Note that by *'quick and dirty'* we mean that the present code contains a lot of remnants of the original app code which are no longer used but have not yet been removed. The modifications were made by the [SciLifeLab Data Centre](https://github.com/ScilifelabDataCentre) team; the team of developers of the original BBMRI-ERIC Biobank Explorer app was not in any way involved in making these modifications.
+The original code of BBMRI-ERIC Biobank Explorer app has been modified in a *quick and dirty way* in order to build a version adapted to the local requirements (specifically, a different data model was used, part of the functionality was removed, page layouts have been changed, etc.). Note that by *'quick and dirty'* we mean that the present code contains some remnants of the original app code which are no longer used but have not yet been removed. The modifications were made by the [SciLifeLab Data Centre](https://github.com/ScilifelabDataCentre) team; the team of developers of the original BBMRI-ERIC Biobank Explorer app was not in any way involved in making these modifications.
 
-Further re-use of our code to deploy other similar databases is welcome (see license conditions). Importantly, we note that the code shared here comes with no guarantees that it works or that it works well.
+Further re-use of our code to deploy other similar databases is welcome as long as the license conditions are met (including for the original BBMRI-ERIC Biobank Explorer app). Importantly, we note that the code shared here comes with no guarantees that it works or that it works well.
 
 ## Components of the app
 
@@ -105,8 +105,6 @@ yarn dev
 
 ## Build your MOLGENIS app
 
-See: [App developement documentation](https://molgenis.gitbooks.io/molgenis/content/developer_documentation/app-development.html)
-
 You can now create a working application that can be imported in MOLGENIS directly, by executing:
 
 ```bash
@@ -115,9 +113,7 @@ yarn build
 
 You can find the zip-file in the ```dist/scd.zip```.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
+See also: [MOLGENIS app developement documentation](https://molgenis.gitbooks.io/molgenis/content/developer_documentation/app-development.html)
 
 ## Create a docker image | Molgenis Dev Team
 To make a standalone docker image that can be run from the Rancher Cluster perform the following steps:
